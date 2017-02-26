@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+using static Asn1PKCS.Encoder.DERUtils;
+
 namespace Asn1PKCS.Encoder
 {
     /// <summary>
@@ -12,15 +14,6 @@ namespace Asn1PKCS.Encoder
     /// </summary>
     public class PKCS8DEREncoder
     {
-        private enum DerType : byte
-        {
-            Integer = 0x02,
-            BitString = 0x03,
-            OctetString = 0x04,
-            Null = 0x05,
-            ObjectIdentifier = 0x06,
-            Sequence = 0x30,
-        }
 
         private static readonly byte[] ZeroIntDerData =
             new byte[] { (byte)DerType.Integer, 0x01, 0x00 };
@@ -48,6 +41,7 @@ namespace Asn1PKCS.Encoder
             //    - SEQUENCE
             //      - INTEGER (modulus)
             //      - INTEGER (exponent)
+            
             byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus);
             byte[] exponent = DERTag(DerType.Integer, rsaParameters.Exponent);
             byte[] keySequence = DERTag(DerType.Sequence, Enumerable.Concat(modulus, exponent).ToArray());
@@ -139,38 +133,6 @@ namespace Asn1PKCS.Encoder
         public static string EncodePrivateKeyToBase64(RSAParameters rsaParameters)
         {
             return Convert.ToBase64String(EncodePrivateKey(rsaParameters));
-        }
-
-        private static byte[] DERTag(DerType derType, int length)
-        {
-            if (length < 128)
-            {
-                return new byte[] { (byte)derType, (byte)length };
-            }
-
-            // Length is >= 128 bytes
-            // DERTag, [0x80 + length], Length
-            byte[] lengths = BitConverter.GetBytes(length);
-            if (BitConverter.IsLittleEndian)
-            {
-                lengths = lengths.Reverse().ToArray();
-            }
-
-            // search not 0x00 value
-            int startIndex = lengths
-                .Select((e, i) => new { data = e, index = i })
-                .Where(e => e.data != 0x00)
-                .First().index;
-
-            return Enumerable.Concat(
-                new byte[] { (byte)derType, (byte)(0x80 + lengths.Length - startIndex) },
-                lengths.Skip(startIndex)
-            ).ToArray();
-        }
-
-        private static byte[] DERTag(DerType derType, byte[] data)
-        {
-            return Enumerable.Concat(DERTag(derType, data.Length), data).ToArray();
         }
     }
 }
