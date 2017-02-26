@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Encoder\PKCS1DEREncoderTest.cs" />
     <Compile Include="Encoder\PKCS8DEREncoderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
