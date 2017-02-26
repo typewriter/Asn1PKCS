@@ -14,7 +14,6 @@ namespace Asn1PKCS.Encoder
     /// </summary>
     public class PKCS8DEREncoder
     {
-
         private static readonly byte[] ZeroIntDerData =
             new byte[] { (byte)DerType.Integer, 0x01, 0x00 };
         private static readonly byte[] RsaIdDerData =
@@ -41,10 +40,7 @@ namespace Asn1PKCS.Encoder
             //    - SEQUENCE
             //      - INTEGER (modulus)
             //      - INTEGER (exponent)
-            
-            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus);
-            byte[] exponent = DERTag(DerType.Integer, rsaParameters.Exponent);
-            byte[] keySequence = DERTag(DerType.Sequence, Enumerable.Concat(modulus, exponent).ToArray());
+            byte[] keySequence = PKCS1DEREncoder.EncodePublicKey(rsaParameters);
             byte[] keyBitString = DERTag(
                 DerType.BitString,
                 Enumerable.Concat(new byte[] { 0x00 }, keySequence).ToArray()
@@ -100,23 +96,9 @@ namespace Asn1PKCS.Encoder
             //     - INTEGER (exponent2)
             //     - INTEGER (coefficient)
             // Note: https://msdn.microsoft.com/ja-jp/library/system.security.cryptography.rsaparameters(v=vs.110).aspx
-            byte[] version = ZeroIntDerData;
-            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus);
-            byte[] publicExponent = DERTag(DerType.Integer, rsaParameters.Exponent);
-            byte[] privateExponent = DERTag(DerType.Integer, rsaParameters.D);
-            byte[] prime1 = DERTag(DerType.Integer, rsaParameters.P);
-            byte[] prime2 = DERTag(DerType.Integer, rsaParameters.Q);
-            byte[] exponent1 = DERTag(DerType.Integer, rsaParameters.DP);
-            byte[] exponent2 = DERTag(DerType.Integer, rsaParameters.DQ);
-            byte[] coefficient = DERTag(DerType.Integer, rsaParameters.InverseQ);
-
-            byte[] keySequence = DERTag(
-                DerType.Sequence,
-                Enumerable.Concat(version, modulus).Concat(publicExponent).Concat(privateExponent).Concat(prime1).Concat(prime2).Concat(exponent1).Concat(exponent2).Concat(coefficient).ToArray()
-                );
+            byte[] keySequence = PKCS1DEREncoder.EncodePrivateKey(rsaParameters);
             byte[] keyOctetString = DERTag(DerType.OctetString, keySequence);
-
-
+            
             byte[] asn1Bytes = DERTag(
                 DerType.Sequence,
                 Enumerable.Concat(zeroInteger, identifierSequence).Concat(keyOctetString).ToArray()
