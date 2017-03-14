@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Decoder\PKCS1DERDecoderTest.cs" />
     <Compile Include="Encoder\PKCS1DEREncoderTest.cs" />
     <Compile Include="Encoder\PKCS8DEREncoderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +69,7 @@
       <Name>Asn1PKCS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

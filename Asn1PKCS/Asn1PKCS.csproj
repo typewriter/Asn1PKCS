@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decoder\GeneralDERDecoder.cs" />
+    <Compile Include="Decoder\PKCS1DERDecoder.cs" />
     <Compile Include="Encoder\DERUtils.cs" />
     <Compile Include="Encoder\PKCS1DEREncoder.cs" />
     <Compile Include="Encoder\PKCS8DEREncoder.cs" />
@@ -54,9 +56,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Decoder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
