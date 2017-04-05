@@ -59,6 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Decoder\PKCS1DERDecoderTest.cs" />
+    <Compile Include="Decoder\PKCS8DERDecoderTest.cs" />
     <Compile Include="Encoder\PKCS1DEREncoderTest.cs" />
     <Compile Include="Encoder\PKCS8DEREncoderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

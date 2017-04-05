@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Decoder\GeneralDERDecoder.cs" />
     <Compile Include="Decoder\PKCS1DERDecoder.cs" />
+    <Compile Include="Decoder\PKCS8DERDecoder.cs" />
     <Compile Include="Encoder\DERUtils.cs" />
     <Compile Include="Encoder\PKCS1DEREncoder.cs" />
     <Compile Include="Encoder\PKCS8DEREncoder.cs" />
