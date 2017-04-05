@@ -54,10 +54,15 @@ namespace Asn1PKCS.Decoder
                     intDataList.Add(value);
                     index += length;
                 }
-                else if (tagType == 0x03 || tagType == 0x04 || tagType == 0x30)
+                else if (tagType == 0x04 || tagType == 0x30)
                 {
-                    // BITSTRING, OCTETSTRING, SEQUENCE values.
+                    // OCTETSTRING, SEQUENCE values.
 
+                }
+                else if (tagType == 0x03)
+                {
+                    // BITSTRING (skip unused bit field)
+                    index++;
                 }
                 else
                 {
