@@ -20,7 +20,7 @@ namespace Asn1PKCS.Decoder
         /// <returns></returns>
         public static RSAParameters DecodePublicKey(byte[] derEncodedBytes)
         {
-            List<byte[]> intItems = GeneralDERDecoder.ExtractIntegerDatas(derEncodedBytes);
+            List<byte[]> intItems = GeneralDERDecoder.ExtractIntegerDatas(derEncodedBytes, true);
 
             RSAParameters rsaParams = new RSAParameters();
             rsaParams.Modulus = intItems[0];
@@ -48,7 +48,7 @@ namespace Asn1PKCS.Decoder
         /// <returns></returns>
         public static RSAParameters DecodePrivateKey(byte[] derEncodedBytes)
         {
-            List<byte[]> intItems = GeneralDERDecoder.ExtractIntegerDatas(derEncodedBytes);
+            List<byte[]> intItems = GeneralDERDecoder.ExtractIntegerDatas(derEncodedBytes, true);
 
             RSAParameters rsaParams = new RSAParameters();
             

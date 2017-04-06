@@ -27,8 +27,8 @@ namespace Asn1PKCS.Encoder
             // SEQUENCE
             // - INTEGER (modulus)
             // - INTEGER (exponent)
-            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus);
-            byte[] exponent = DERTag(DerType.Integer, rsaParameters.Exponent);
+            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus, true);
+            byte[] exponent = DERTag(DerType.Integer, rsaParameters.Exponent, true);
             byte[] keySequence = DERTag(DerType.Sequence, Enumerable.Concat(modulus, exponent).ToArray());
 
             return keySequence;
@@ -65,14 +65,14 @@ namespace Asn1PKCS.Encoder
             // - INTEGER (coefficient)
             // Note: https://msdn.microsoft.com/ja-jp/library/system.security.cryptography.rsaparameters(v=vs.110).aspx
             byte[] version = ZeroIntDerData;
-            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus);
-            byte[] publicExponent = DERTag(DerType.Integer, rsaParameters.Exponent);
-            byte[] privateExponent = DERTag(DerType.Integer, rsaParameters.D);
-            byte[] prime1 = DERTag(DerType.Integer, rsaParameters.P);
-            byte[] prime2 = DERTag(DerType.Integer, rsaParameters.Q);
-            byte[] exponent1 = DERTag(DerType.Integer, rsaParameters.DP);
-            byte[] exponent2 = DERTag(DerType.Integer, rsaParameters.DQ);
-            byte[] coefficient = DERTag(DerType.Integer, rsaParameters.InverseQ);
+            byte[] modulus = DERTag(DerType.Integer, rsaParameters.Modulus, true);
+            byte[] publicExponent = DERTag(DerType.Integer, rsaParameters.Exponent, true);
+            byte[] privateExponent = DERTag(DerType.Integer, rsaParameters.D, true);
+            byte[] prime1 = DERTag(DerType.Integer, rsaParameters.P, true);
+            byte[] prime2 = DERTag(DerType.Integer, rsaParameters.Q, true);
+            byte[] exponent1 = DERTag(DerType.Integer, rsaParameters.DP, true);
+            byte[] exponent2 = DERTag(DerType.Integer, rsaParameters.DQ, true);
+            byte[] coefficient = DERTag(DerType.Integer, rsaParameters.InverseQ, true);
 
             byte[] keySequence = DERTag(
                 DerType.Sequence,

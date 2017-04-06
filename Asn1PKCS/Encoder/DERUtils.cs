@@ -49,5 +49,18 @@ namespace Asn1PKCS.Encoder
         {
             return Enumerable.Concat(DERTag(derType, data.Length), data).ToArray();
         }
+
+        public static byte[] DERTag(DerType derType, byte[] data, bool unsignedData)
+        {
+            byte[] signedData = data;
+            
+            // prepend "positive sign (0x00)" byte
+            if (unsignedData && signedData[0] >= 0x80)
+            {
+                signedData = new byte[] { 0x00 }.Concat(signedData).ToArray();
+            }
+
+            return DERTag(derType, signedData);
+        }
     }
 }

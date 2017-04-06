@@ -19,6 +19,18 @@ namespace Asn1PKCS.Decoder
         /// <returns></returns>
         internal static List<byte[]> ExtractIntegerDatas(byte[] derData)
         {
+            return ExtractIntegerDatas(derData, false);
+        }
+
+        /// <summary>
+        /// Extract "INTEGER" values recursively.
+        /// "INTEGER"値を抽出します。SEQUENCEなどの内側も再帰的に抽出します。
+        /// </summary>
+        /// <param name="derData"></param>
+        /// <param name="haveToUnsigned"></param>
+        /// <returns></returns>
+        internal static List<byte[]> ExtractIntegerDatas(byte[] derData, bool haveToUnsigned)
+        {
             List<byte[]> intDataList = new List<byte[]>();
 
             int index = 0;
@@ -34,7 +46,7 @@ namespace Asn1PKCS.Decoder
                 if ((length & 0x80) != 0)
                 {
                     int lengthLength = length & 0x7F;
-                    byte[] lengthBytes = 
+                    byte[] lengthBytes =
                         new byte[4 - lengthLength] // padding (int32)
                         .Concat(derData.Skip(index).Take(lengthLength)).ToArray();
 
@@ -51,6 +63,12 @@ namespace Asn1PKCS.Decoder
                 {
                     // INTEGER values.
                     byte[] value = derData.Skip(index).Take(length).ToArray();
+
+                    if (haveToUnsigned)
+                    {
+                        value = value.SkipWhile(v => v == 0x00).ToArray();
+                    }
+
                     intDataList.Add(value);
                     index += length;
                 }
