@@ -64,9 +64,9 @@ namespace Asn1PKCS.Decoder
                     // INTEGER values.
                     byte[] value = derData.Skip(index).Take(length).ToArray();
 
-                    if (haveToUnsigned)
+                    if (haveToUnsigned && value.Length % 2 != 0 && value[0] == 0)
                     {
-                        value = value.SkipWhile(v => v == 0x00).ToArray();
+                        value = value.Skip(1).ToArray();
                     }
 
                     intDataList.Add(value);
