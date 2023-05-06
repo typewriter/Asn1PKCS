@@ -1,8 +1,39 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard13;netstandard20</TargetFrameworks>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <AssemblyTitle>Asn1PKCS</AssemblyTitle>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title></Title>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
+    <PackageId>Nyamikan.Asn1PKCS</PackageId>
+    <Version>0.2.0</Version>
+    <Authors>typewriter</Authors>
+    <Company />
     <Product>Asn1PKCS</Product>
+    <Description>PKCS #1/PKCS #8 RSA key ASN.1 encoder/decoder for C#.</Description>
+    <PackageProjectUrl>https://github.com/typewriter/Asn1PKCS</PackageProjectUrl>
+    <PackageTags>PKCS;RSA;ASN.1;Key</PackageTags>
+    <PackageReleaseNotes>Changed to .NET 6 framework</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>nyamikan.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\nyamikan.png" />
+    <None Remove="Resources\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\nyamikan.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Resource>
+    <Resource Include="Resources\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Resource>
+  </ItemGroup>
+
 </Project>
